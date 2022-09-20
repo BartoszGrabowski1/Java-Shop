@@ -45,8 +45,12 @@
         <ul class="menu">
             <li th:if="${supplier == null}" th:each="category,iterStart : ${categories}"><a th:attr="href='/?categoryId=' + ${category.getId()}"><strong
                     th:text="${category.name}">Category name</strong></a></li>
-            <li th:if="${supplier != null}" th:each="category,iterStart : ${categories}"><a th:attr="href='/?categoryId=' + ${category.getId()}"><strong
+
+            <li th:if="${supplier != null}" th:each="category,iterStart : ${categories}"><a th:attr="href='/?categoryId=' + ${category.getId()} +
+                        '&supplierId=' + ${supplier.getId()}"><strong
                     th:text="${category.name}">Category name</strong></a></li>
+
+
         </ul>
     </div>
     <!--    Div to filter by supplier-->
@@ -57,10 +61,17 @@
             <div class="caret"></div>
         </div>
         <ul class="menu">
-            <li th:each="supplier,iterStart : ${suppliers}"><a th:attr="href='/?supplierId=' + ${supplier.getId()}"><strong
+            <li th:if="${category==null}" th:each="supplier,iterStart : ${suppliers}"><a th:attr="href='/?supplierId=' + ${supplier.getId()}"><strong
+                    th:text="${supplier.name}">Category name</strong></a></li>
+
+            <li th:if="${category!=null}" th:each="supplier,iterStart : ${suppliers}"><a th:attr="href='/?supplierId=' + ${supplier.getId()} +
+                            '&categoryId=' + ${category.getId()}"><strong
                     th:text="${supplier.name}">Category name</strong></a></li>
         </ul>
     </div>
+
+    <button type="button" class="btn btn-dark selected" id="resetBtn"><a href="/">Reset</a></button>
+
 </div>
 
 

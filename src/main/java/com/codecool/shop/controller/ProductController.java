@@ -47,6 +47,12 @@ public class ProductController extends HttpServlet {
             context.setVariable("category", null);
             context.setVariable("supplier", supplierService.getSupplier(supplier_id));
             context.setVariable("products", productService.getProductsFromSupplier(supplier_id));
+        } else if ((req.getParameter("categoryId") != null) && (req.getParameter("supplierId") != null)){
+            int category_id = Integer.parseInt(req.getParameter("categoryId"));
+            int supplier_id = Integer.parseInt(req.getParameter("supplierId"));
+            context.setVariable("category", productService.getProductCategory(category_id));
+            context.setVariable("supplier", supplierService.getSupplier(supplier_id));
+            context.setVariable("products", productService.getProductsFromSupplierAndCategory(category_id,supplier_id));
         } else {
             context.setVariable("supplier", null);
             context.setVariable("category", null);

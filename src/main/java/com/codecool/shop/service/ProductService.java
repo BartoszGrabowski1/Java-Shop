@@ -37,6 +37,18 @@ public class ProductService{
         return  productsFromSupplier;
     }
 
+    public List<Product> getProductsFromSupplierAndCategory(int categoryId, int supplierId){
+        List<Product> productsByCategory = getProductsForCategory(categoryId);
+        List<Product> productsFromTheSameSupplierAndCategory = new ArrayList<>();
+        for (Product product : productsByCategory){
+            if (product.getSupplier().getId() == supplierId){
+                productsFromTheSameSupplierAndCategory.add(product);
+            }
+        }
+        return productsFromTheSameSupplierAndCategory;
+    }
+
+
     public List<Product> getAllProducts(){
         return productDao.getAll();
     }
