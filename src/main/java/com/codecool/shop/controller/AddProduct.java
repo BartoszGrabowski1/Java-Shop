@@ -13,7 +13,7 @@ public class AddProduct extends HttpServlet {
 
      @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-           String name =  req.getParameter("prod_name");
-         System.out.println(name);
+           String id =  req.getParameter("prod_id");
+         System.out.println(id);
      }
 }
