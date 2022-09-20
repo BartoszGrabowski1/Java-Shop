@@ -5,6 +5,8 @@ import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 
+import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductService{
@@ -23,6 +25,20 @@ public class ProductService{
     public List<Product> getProductsForCategory(int categoryId){
         var category = productCategoryDao.find(categoryId);
         return productDao.getBy(category);
+    }
+
+    public List<Product> getProductsFromSupplier(int id){
+        List<Product> productsFromSupplier = new ArrayList<>();
+        for (Product product : productDao.getAll()){
+            if (product.getSupplier().getId() == id){
+                productsFromSupplier.add(product);
+            }
+        }
+        return  productsFromSupplier;
+    }
+
+    public List<Product> getAllProducts(){
+        return productDao.getAll();
     }
 
 
