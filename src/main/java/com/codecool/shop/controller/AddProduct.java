@@ -16,14 +16,14 @@ import java.io.IOException;
 public class AddProduct extends HttpServlet {
 
 
-     @Override
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-         CartDao cartDaoStore = CartDaoMem.getInstance();
+        CartDao cartDaoStore = CartDaoMem.getInstance();
         ProductDao productDataStore = ProductDaoMem.getInstance();
-           String id =  req.getParameter("prod_id");
-         System.out.println(id);
-         int productId = Integer.parseInt(id);
+        String id = req.getParameter("prod_id");
+        System.out.println(id);
+        int productId = Integer.parseInt(id);
         cartDaoStore.addProduct(productDataStore.find(productId));
         resp.sendRedirect("/");
-     }
+    }
 }
