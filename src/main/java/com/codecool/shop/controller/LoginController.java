@@ -1,0 +1,44 @@
+package com.codecool.shop.controller;
+
+import com.codecool.shop.config.TemplateEngineUtil;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.WebContext;
+
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Objects;
+
+@WebServlet(urlPatterns = {"/login"})
+public class LoginController extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+        WebContext context = new WebContext(req, resp, req.getServletContext());
+        engine.process("product/login.html", context, resp.getWriter());
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        System.out.println(req.getParameter("login_email"));
+        System.out.println(req.getParameter("login_password"));
+        if(Objects.equals(req.getParameter("login_email"), "dev@mail.com") && Objects.equals(req.getParameter("login_password"), "developer")){
+            HttpSession httpSession = req.getSession();
+            httpSession.setAttribute("name", "Developer");
+            System.out.println(httpSession.getAttribute("name"));
+            resp.sendRedirect(req.getContextPath()+"/");
+        }
+    }
+
+
+
+    //TODO validátor:
+    // if userService.loginSuccess(user) then - csináld a fentit, vigyél a főoldalra
+    // else: resp.sendRedirect(req.getContextPath() + "/login"); - vidd vissza a login page-re
+    // a validator használhatná a findByEmailt és ha talál ilyet az adatbázisban, akkor visszaad egy true-t
+
+}
