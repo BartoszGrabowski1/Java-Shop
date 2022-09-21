@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Login</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
@@ -24,44 +24,50 @@
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 </head>
 <body>
-<section class="vh-100 bg-image">
-    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
-        <div class="container h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-                    <div class="card" style="border-radius: 15px;">
-                        <div class="card-body p-5">
-                            <h2 class="text-uppercase text-center mb-5">Login</h2>
+<div class="loginContainer">
+    <section class="vh-100 bg-image">
+        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+            <div class="container h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                        <div class="card" style="border-radius: 15px;">
+                            <div class="card-body p-5">
+                                <h2 class="text-uppercase text-center mb-5">Login</h2>
 
-                            <form class="form-horizontal" action='' method="POST">
+                                <form class="form-horizontal" action='' method="POST">
 
 
-                                <div class="form-outline mb-4">
-                                    <input type="email" id="login_email" name="login_email" class="form-control form-control-lg" />
-                                    <label class="form-label" for="login_email">Your Email</label>
-                                </div>
+                                    <div class="form-outline mb-4">
+                                        <input type="email" id="login_email" name="login_email"
+                                               class="form-control form-control-lg"/>
+                                        <label class="form-label" for="login_email">Your Email</label>
+                                    </div>
 
-                                <div class="form-outline mb-4">
-                                    <input type="password" id="login_password" name="login_password" class="form-control form-control-lg" />
-                                    <label class="form-label" for="login_password">Password</label>
-                                </div>
+                                    <div class="form-outline mb-4">
+                                        <input type="password" id="login_password" name="login_password"
+                                               class="form-control form-control-lg"/>
+                                        <label class="form-label" for="login_password">Password</label>
+                                    </div>
 
-                                <div class="d-flex justify-content-center">
-                                    <button type="submit" formaction="/login" formmethod="post"
-                                            class="btn btn-block btn-lg" id="login-register-button">Login</button>
-                                </div>
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit" formaction="/login" formmethod="post"
+                                                class="btn btn-block btn-lg" id="login-register-button">Login
+                                        </button>
+                                    </div>
 
-                                <p class="text-center text-muted mt-5 mb-0">Don't have an account? <a href="/registration"
-                                                                                                        class="fw-bold text-body"><u>Register here</u></a></p>
+                                    <p class="text-center text-muted mt-5 mb-0">Don't have an account? <a
+                                            href="/registration"
+                                            class="fw-bold text-body"><u>Register here</u></a></p>
 
-                            </form>
+                                </form>
 
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</div>
 </body>
 </html>

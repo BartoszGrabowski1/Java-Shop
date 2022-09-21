@@ -22,6 +22,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +36,7 @@ public class ProductController extends HttpServlet {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        HttpSession session = req.getSession();
 
         SupplierService supplierService = new SupplierService(supplierDataStore);
         ProductService productService = new ProductService(productDataStore,productCategoryDataStore);
@@ -48,6 +50,7 @@ public class ProductController extends HttpServlet {
 
         context.setVariable("categories", productCategoryDataStore.getAll());
         context.setVariable("suppliers", supplierService.getAllSuppliers());
+        context.setVariable("name", session.getAttribute("name"));
         // // Alternative setting of the template context
         // Map<String, Object> params = new HashMap<>();
         // params.put("category", productCategoryDataStore.find(1));

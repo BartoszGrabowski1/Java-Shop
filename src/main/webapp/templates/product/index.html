@@ -30,11 +30,11 @@
 </head>
 
 <body>
+<div th:replace="navbar.html :: copy"></div>
 
 <div class="jumbotron text-center">
     <h1>Codecool Shop</h1>
 </div>
-
 
 <div class="dropdowns">
     <div class="dropdown">
@@ -90,7 +90,12 @@
                     <div class="card-text">
                         <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                     </div>
-                    <div class="card-text">
+                    <div th:if="${name==null}"class="card-text">
+                        <a class="btn btn-success addProduct" href="/login">Add to cart
+
+                        </a>
+                    </div>
+                    <div th:if="${name!=null}"class="card-text">
                         <a class="btn btn-success addProduct" id="addProduct" th:attr="data-id=${prod.id}">Add to cart
 
                         </a>
