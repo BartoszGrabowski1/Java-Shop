@@ -43,6 +43,20 @@ public class ProductController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
+        filterCategoriesAndSuppliers(req, supplierService, productService, context);
+
+
+        context.setVariable("categories", productCategoryDataStore.getAll());
+        context.setVariable("suppliers", supplierService.getAllSuppliers());
+        // // Alternative setting of the template context
+        // Map<String, Object> params = new HashMap<>();
+        // params.put("category", productCategoryDataStore.find(1));
+        // params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
+        // context.setVariables(params);
+        engine.process("product/index.html", context, resp.getWriter());
+    }
+
+    private static void filterCategoriesAndSuppliers(HttpServletRequest req, SupplierService supplierService, ProductService productService, WebContext context) {
         context.setVariable("category", productService.getProductCategory(1));
         context.setVariable("products", productService.getProductsForCategory(1));
         context.setVariable("cart", cartService.getSelectedProducts());
@@ -70,6 +84,7 @@ public class ProductController extends HttpServlet {
         }
 
 
+
         context.setVariable("categories", productCategoryDataStore.getAll());
         context.setVariable("suppliers", supplierService.getAllSuppliers());
         // // Alternative setting of the template context
@@ -78,7 +93,6 @@ public class ProductController extends HttpServlet {
         // params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
         // context.setVariables(params);
         engine.process("product/index.html", context, resp.getWriter());
-
 
 
     }
