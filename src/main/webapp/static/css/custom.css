@@ -178,7 +178,16 @@ a {
 {
     clear: both;
 }
-.list-group-item-text
-{
+.list-group-item-text {
     margin: 0 0 11px;
+}
+#login-register-button{
+    background-color: white;
+    color: black;
+    border: 2px solid #428bca;
+}
+#login-register-button:hover{
+    background-color: #428bca;
+    color: white;
+    border: 2px solid #428bca;
 }
