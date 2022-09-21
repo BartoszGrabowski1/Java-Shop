@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "CartServlet", urlPatterns = {"/cart/add"})
+@WebServlet(name = "AddServlet", urlPatterns = {"/dupa"})
 public class AddProduct extends HttpServlet {
 
 

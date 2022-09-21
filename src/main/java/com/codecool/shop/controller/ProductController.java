@@ -6,6 +6,9 @@ import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.implementation.CartDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.model.Product;
+import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.model.Supplier;
 import com.codecool.shop.service.CartService;
 import com.codecool.shop.service.ProductService;
 import com.codecool.shop.config.TemplateEngineUtil;
@@ -18,11 +21,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
 @WebServlet(urlPatterns = {"/"})
 public class ProductController extends HttpServlet {
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        CartDao cartDaoStore = CartDaoMem.getInstance();
+        ProductDao productDataStore = ProductDaoMem.getInstance();
+        String id = req.getParameter("name");
+        int productId = Integer.parseInt(id);
+        cartDaoStore.addProduct(productDataStore.find(productId));
+        resp.sendRedirect("/");
+
+    }
+
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -46,6 +63,7 @@ public class ProductController extends HttpServlet {
         // params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
         // context.setVariables(params);
         engine.process("product/index.html", context, resp.getWriter());
+
 
 
     }
