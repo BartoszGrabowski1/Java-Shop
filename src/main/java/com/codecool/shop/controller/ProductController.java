@@ -37,6 +37,20 @@ public class ProductController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
+        filterCategoriesAndSuppliers(req, supplierService, productService, context);
+
+
+        context.setVariable("categories", productCategoryDataStore.getAll());
+        context.setVariable("suppliers", supplierService.getAllSuppliers());
+        // // Alternative setting of the template context
+        // Map<String, Object> params = new HashMap<>();
+        // params.put("category", productCategoryDataStore.find(1));
+        // params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
+        // context.setVariables(params);
+        engine.process("product/index.html", context, resp.getWriter());
+    }
+
+    private static void filterCategoriesAndSuppliers(HttpServletRequest req, SupplierService supplierService, ProductService productService, WebContext context) {
         if ((req.getParameter("categoryId") != null) && (req.getParameter("supplierId") == null)) {
             int category_id = Integer.parseInt(req.getParameter("categoryId"));
             context.setVariable("supplier", null);
@@ -58,16 +72,6 @@ public class ProductController extends HttpServlet {
             context.setVariable("category", null);
             context.setVariable("products", productService.getAllProducts());
         }
-
-
-        context.setVariable("categories", productCategoryDataStore.getAll());
-        context.setVariable("suppliers", supplierService.getAllSuppliers());
-        // // Alternative setting of the template context
-        // Map<String, Object> params = new HashMap<>();
-        // params.put("category", productCategoryDataStore.find(1));
-        // params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
-        // context.setVariables(params);
-        engine.process("product/index.html", context, resp.getWriter());
     }
 
 }
