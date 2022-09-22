@@ -5,11 +5,14 @@ import com.codecool.shop.model.Product;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CartDaoMem implements CartDao {
     private List<Product> data = new ArrayList<>();
+    private Map<Product, Integer> groupProduct = new HashMap<>();
 
 
     private static CartDaoMem instance = null;
@@ -21,12 +24,21 @@ public class CartDaoMem implements CartDao {
         return instance;
     }
 
+    @Override
+    public Map<Product, Integer> getGroupProduct() {
+        groupProduct.clear();
+        for (Product selectedProduct : data) {
+            groupProduct.put(selectedProduct, groupProduct.getOrDefault(selectedProduct, 0) + 1);
+        }
+        return groupProduct;
+    }
 
     @Override
     public void addProduct(Product product) {
         data.add(product);
 
     }
+
 
     @Override
     public BigDecimal getValue() {
@@ -37,14 +49,11 @@ public class CartDaoMem implements CartDao {
     }
 
 
-
     @Override
     public void removeProduct(Product product) {
         for (Product selectedProduct : data) {
             if (selectedProduct.getName().equals(product.getName())) {
                 data.remove(selectedProduct);
-
-
             }
         }
     }

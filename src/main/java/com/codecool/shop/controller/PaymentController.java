@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet(name = "CartServlet", urlPatterns = {"/cart"})
-public class CartController extends HttpServlet {
+@WebServlet(name = "PaymentServlet", urlPatterns = {"/payment"})
+public class PaymentController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,8 +27,7 @@ public class CartController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("cart", cartService.getSelectedProducts());
         context.setVariable("value", cartService.getValue());
-        context.setVariable("order", cartService.getGroupProducts());
 
-        engine.process("cart/cart.html", context, resp.getWriter());
+        engine.process("product/payment.html", context, resp.getWriter());
     }
 }

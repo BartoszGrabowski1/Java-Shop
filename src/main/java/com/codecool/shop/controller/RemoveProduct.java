@@ -13,10 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet(name = "AddCartServlet", urlPatterns = {"/add"})
-public class AddProduct extends HttpServlet {
-
-
+@WebServlet(name = "RemoveCartServlet", urlPatterns = {"/remove"})
+public class RemoveProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CartDao cartDaoStore = CartDaoMem.getInstance();
@@ -24,7 +22,7 @@ public class AddProduct extends HttpServlet {
         String id = req.getParameter("prod_id");
         System.out.println(id);
         int productId = Integer.parseInt(id);
-        cartDaoStore.addProduct(productDataStore.find(productId));
-        resp.sendRedirect("/");
+        cartDaoStore.removeProduct(productDataStore.find(productId));
+        resp.sendRedirect("/cart");
     }
 }
