@@ -28,6 +28,9 @@ public class CartDaoMem implements CartDao {
 
     }
 
+
+
+
     @Override
     public BigDecimal getValue() {
         return data.stream()
@@ -43,8 +46,6 @@ public class CartDaoMem implements CartDao {
         for (Product selectedProduct : data) {
             if (selectedProduct.getName().equals(product.getName())) {
                 data.remove(selectedProduct);
-
-
             }
         }
     }
