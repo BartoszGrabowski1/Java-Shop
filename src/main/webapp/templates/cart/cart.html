@@ -35,16 +35,15 @@
 </head>
 <body>
 <div class="main">
-    <div class="header"></div>
-    <div class="nav"></div>
 
-    <div class="section">
-        <div>
-            <a href="/">Home</a>
+    <div th:replace="navbar.html :: copy"></div>
+<div>
             <div class="jumbotron text-center">
                 <h1>Codecool Shop</h1>
             </div>
         </div>
+
+    <div class="section">
 
         <div th:if="${cart.size()== 0}">
 
@@ -102,7 +101,9 @@
                     <div class="textValue" th:text="${value} +' USD'">All value</div>
                         </div>
                     <div class="buttonPay">
+                        <a href="/payment">
                     <button class="btn btn-dark selected">PAY</button>
+                        </a>
                     </div>
                 </div>
             </div>
