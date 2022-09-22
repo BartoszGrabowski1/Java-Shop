@@ -23,6 +23,6 @@ public class RemoveProduct extends HttpServlet {
         System.out.println(id);
         int productId = Integer.parseInt(id);
         cartDaoStore.removeProduct(productDataStore.find(productId));
-        resp.sendRedirect("/cart");
+
     }
 }

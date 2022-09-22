@@ -52,7 +52,7 @@ public class CartDaoMem implements CartDao {
     @Override
     public void removeProduct(Product product) {
         for (Product selectedProduct : data) {
-            if (selectedProduct.getName().equals(product.getName())) {
+            if (selectedProduct.getId()==product.getId()) {
                 data.remove(selectedProduct);
             }
         }
