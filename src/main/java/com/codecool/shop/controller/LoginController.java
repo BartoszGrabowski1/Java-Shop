@@ -24,7 +24,7 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        if(Objects.equals(req.getParameter("login_email"), "dev@mail.com") && Objects.equals(req.getParameter("login_password"), "developer")){
+        if(Objects.equals(req.getParameter("login_email"), "1@1") && Objects.equals(req.getParameter("login_password"), "11")){
             HttpSession httpSession = req.getSession();
             httpSession.setAttribute("name", "Developer");
             System.out.println(httpSession.getAttribute("name"));

@@ -31,6 +31,7 @@
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/cartStyle.css"/>
+    <script type="text/javascript" src="static/js/cart.js" defer></script>
 
 </head>
 <body>
@@ -53,31 +54,36 @@
 
             <div class="container">
                 <div class="cartWithProducts">
-                    <div class="ok" th:each="prod,iterStat : ${cart}">
+                    <div class="ok" th:each="key : ${order.keySet()}">
                         <div class="singleProduct">
 
                             <div class="image">
                                 <img class="image1"
-                                     th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
+                                     th:attr="src='/static/img/product_' + ${key.id} + '.jpg'" alt=""/>
                             </div>
 
                             <div class="nameProduct">
-                                <div class="textProduct" th:text="${prod.name}">Product name</div>
+                                <div class="textProduct" th:text="${key.name}">Product name</div>
                             </div>
 
                             <div class="productQuantity">
                                 <div class="increaseButton">
-                                    <button> - </button>
+                                    <a class="btn btn-success removeProduct" id="removeProduct" th:attr="data-id=${key.id}">-
+
+                        </a>
                                 </div>
-                                <div class="countProduct" > 4 </div>
+                                <div class="countProduct" th:text="${order.get(key)}"> 4 </div>
                                 <div class="decreaseButton">
-                                    <button> + </button>
+                                    <a class="btn btn-success addProduct" id="addProduct" th:attr="data-id=${key.id}">+
+
+                        </a>
                                 </div>
 
                             </div>
 
-                            <div class="value">
-                                <div class="textProduct" th:text="${prod.getPrice()}">Product name</div>
+                            <div class="value" th:with="result=${key.defaultPrice * order.get(key)}">
+                                <div class="textProduct" th:text="${result}">Product name</div>
+
 
                             </div>
                             <div class="deleteProduct">
