@@ -11,11 +11,11 @@ async function addItemToCart(event){
     return await fetch('/add?prod_id=' +event.target.dataset.id)
 }
 
-function increaseCartSize(){
+function increaseCartSize() {
     let text = cartSize.textContent;
     let number = parseInt(text);
-    cartSize.textContent=  (number+1).toString();
-
+    cartSize.textContent = (number + 1).toString();
+}
 for(let cart of RemoveToCart){
     cart.addEventListener("click", removeItemToCart)
 }
