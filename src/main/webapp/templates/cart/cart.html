@@ -34,7 +34,7 @@
     <script type="text/javascript" src="static/js/cart.js" defer></script>
 
 </head>
-<body>
+<body onload="loadCartSize()">
 <div class="main">
 
     <div th:replace="navbar.html :: copy"></div>
@@ -52,9 +52,9 @@
         </div>
         <div th:unless="${cart.size()==0}">
 
-            <div class="container">
-                <div class="cartWithProducts">
-                    <div class="ok" th:each="key : ${order.keySet()}">
+            <div class="container" id="container">
+                <div class="cartWithProducts" id="cartWithProducts">
+                    <div class="ok" th:each="key : ${order.keySet()}" id="  " th:id="'product_'+${key.id}">
                         <div class="singleProduct">
 
                             <div class="image">
@@ -68,13 +68,13 @@
 
                             <div class="productQuantity">
                                 <div class="increaseButton">
-                                    <a class="btn btn-success removeProduct" id="removeProduct" th:attr="data-id=${key.id}">-
+                                    <a class="btn btn-success decreaseQuantity" id="removeProduct" th:attr="data-id=${key.id},data-quantity=${order.get(key)},data-value=${key.defaultPrice}">-
 
                         </a>
                                 </div>
-                                <div class="countProduct" th:text="${order.get(key)}"> 4 </div>
+                                <div class="countProduct" id="" th:id="'count_' +${key.id}" th:text="${order.get(key)}"> 4 </div>
                                 <div class="decreaseButton">
-                                    <a class="btn btn-success addProduct" id="addProduct" th:attr="data-id=${key.id}">+
+                                    <a class="btn btn-success increaseQuantity" id="addProduct" th:attr="data-id=${key.id},data-quantity=${order.get(key)},data-value=${key.defaultPrice}">+
 
                         </a>
                                 </div>
@@ -82,7 +82,7 @@
                             </div>
 
                             <div class="value" th:with="result=${key.defaultPrice * order.get(key)}">
-                                <div class="textProduct" th:text="${result}">Product name</div>
+                                <div class="textProduct" id=" " th:id="'value_'+${key.id}" th:text="${result}">Product name</div>
 
 
                             </div>
@@ -99,12 +99,12 @@
                 </div>
 
 
-                <div class="orderValue">
+                <div class="orderValue" id="orderValue">
                     <div class="test">
                     <div class="text-value">
                     <div class="textProduct">Value of products : </div>
                     </div>
-                    <div class="textValue" th:text="${value} +' USD'">All value</div>
+                    <div class="textValue" id="final-value" th:text="${value} +' USD'">All value</div>
                         </div>
                     <div class="buttonPay">
                         <a href="/payment">
