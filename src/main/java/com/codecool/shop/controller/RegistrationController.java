@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet(urlPatterns = {"/registration"})
+@WebServlet(name="registrationServlet", urlPatterns = {"/registration"})
 public class RegistrationController extends HttpServlet {
 
     @Override

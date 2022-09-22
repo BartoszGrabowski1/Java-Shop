@@ -26,10 +26,12 @@
     <!-- End of Bootstrap components -->
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
     <script type="text/javascript" src="static/js/cart.js" defer></script>
 </head>
 
-<body>
+<body onload="loadCartSize()">
 <div th:replace="navbar.html :: copy"></div>
 
 <div class="jumbotron text-center">

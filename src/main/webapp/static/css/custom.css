@@ -201,7 +201,6 @@ a {
 #navbar {
     overflow: hidden;
     background-color: white;
-    position: sticky;
 }
 
 /* Navbar links */
@@ -272,11 +271,11 @@ a {
     color: white;
 }
 .notification {
-    background-color: #428bca;
+    background-color: rgb(255, 255, 255);
     color: white;
     text-decoration: none;
     position: relative;
-    border: 1px #428bca solid;
+    border: 1px #ffffff solid;
     border-radius: 5px;
     text-align: center;
     margin-top: 15px;
@@ -286,13 +285,16 @@ a {
 
 
 .notification:hover {
-    background: red;
+    background: #ffffff;
+}
+.material-icons:hover{
+    color: #428bca;
 }
 
 .notification .badge {
     position: absolute;
-    top: -10px;
-    right: -10px;
+    top: -5px;
+    right: -5px;
     padding: 5px 10px;
     border-radius: 50%;
     background: red;

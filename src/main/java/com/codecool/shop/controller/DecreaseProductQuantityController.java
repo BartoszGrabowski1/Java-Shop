@@ -13,18 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet(name = "AddCartServlet", urlPatterns = {"/add"})
-public class AddProduct extends HttpServlet {
-
-
+@WebServlet(name = "DecreaseProductQuantityServlet", urlPatterns = {"/decreaseProductQuantity"})
+public class DecreaseProductQuantityController extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CartDao cartDaoStore = CartDaoMem.getInstance();
         ProductDao productDataStore = ProductDaoMem.getInstance();
         String id = req.getParameter("prod_id");
-        System.out.println(id);
         int productId = Integer.parseInt(id);
-        cartDaoStore.addProduct(productDataStore.find(productId));
-        resp.sendRedirect("/");
+        cartDaoStore.removeProduct(productDataStore.find(productId));
+
     }
 }

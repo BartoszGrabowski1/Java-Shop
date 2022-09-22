@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Objects;
 
-@WebServlet(urlPatterns = {"/login"})
+@WebServlet(name="loginServlet", urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
 
     @Override
@@ -21,13 +21,11 @@ public class LoginController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
         engine.process("product/login.html", context, resp.getWriter());
     }
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        if(Objects.equals(req.getParameter("login_email"), "1@1") && Objects.equals(req.getParameter("login_password"), "11")){
+        if(Objects.equals(req.getParameter("login_email"), "dev@mail.com") && Objects.equals(req.getParameter("login_password"), "developer")){
             HttpSession httpSession = req.getSession();
             httpSession.setAttribute("name", "Developer");
-            System.out.println(httpSession.getAttribute("name"));
             resp.sendRedirect(req.getContextPath()+"/");
         }
     }

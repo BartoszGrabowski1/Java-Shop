@@ -4,10 +4,7 @@ import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.model.Product;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CartDaoMem implements CartDao {
@@ -48,7 +45,17 @@ public class CartDaoMem implements CartDao {
 
     }
 
+    @Override
+    public void removeProductsByGivenName(String name){
+        List<Product> productsToDelete = new ArrayList<>();
+        for(Product selectedProduct:data){
+            if(Objects.equals(selectedProduct.getName(), name)){
+                productsToDelete.add(selectedProduct);
+            }
+        }
+        data.removeAll(productsToDelete);
 
+    }
     @Override
     public void removeProduct(Product product) {
         for (Product selectedProduct : data) {

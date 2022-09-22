@@ -15,6 +15,8 @@ public interface CartDao {
 
     void removeProduct(Product product);
 
+    void removeProductsByGivenName(String name);
+
     void increaseProductQuantity(Product product);
 
     void decreaseProductQuantity(Product product);

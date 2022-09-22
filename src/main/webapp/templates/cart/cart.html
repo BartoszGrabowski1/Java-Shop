@@ -32,6 +32,8 @@
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/cartStyle.css"/>
     <script type="text/javascript" src="static/js/cart.js" defer></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
 
 </head>
 <body onload="loadCartSize()">
@@ -68,30 +70,26 @@
 
                             <div class="productQuantity">
                                 <div class="increaseButton">
-                                    <a class="btn btn-success decreaseQuantity" id="removeProduct" th:attr="data-id=${key.id},data-quantity=${order.get(key)},data-value=${key.defaultPrice}">-
+                                    <a class="btn btn btn-primary  decreaseQuantity" id="removeProduct" th:attr="data-id=${key.id},data-quantity=${order.get(key)},data-value=${key.defaultPrice}">-
 
                         </a>
                                 </div>
                                 <div class="countProduct" id="" th:id="'count_' +${key.id}" th:text="${order.get(key)}"> 4 </div>
                                 <div class="decreaseButton">
-                                    <a class="btn btn-success increaseQuantity" id="addProduct" th:attr="data-id=${key.id},data-quantity=${order.get(key)},data-value=${key.defaultPrice}">+
+                                    <a class="btn btn btn-primary increaseQuantity"   id="addProduct" th:attr="data-id=${key.id},data-quantity=${order.get(key)},data-value=${key.defaultPrice}">+
 
                         </a>
                                 </div>
 
                             </div>
 
-                            <div class="value" th:with="result=${key.defaultPrice * order.get(key)}">
+                            <div class="value" th:with="result=${key.defaultPrice * order.get(key)}+' USD'">
                                 <div class="textProduct" id=" " th:id="'value_'+${key.id}" th:text="${result}">Product name</div>
 
 
                             </div>
                             <div class="deleteProduct">
-                                <form action="/cart" method="post">
-                                    <input type="checkbox" name="name" value="0">
-                                    <input type="submit" value="Delete">
-
-                                </form>
+                                    <input type="submit" value="Delete"  id="delete-button" th:attr="data-name=${key.name}, data-id=${key.id}">
                             </div>
                         </div>
 
