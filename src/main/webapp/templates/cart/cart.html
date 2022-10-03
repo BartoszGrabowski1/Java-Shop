@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title>Codecool Shop</title>
+
+    <!-- Bootstrap components -->
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <!--Latest compiled and minified Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- End of Bootstrap components -->
+
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/cartStyle.css"/>
+    <script type="text/javascript" src="static/js/cart.js" defer></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+
+</head>
+<body onload="loadCartSize()">
+<div class="main">
+
+    <div th:replace="navbar.html :: copy"></div>
+<div>
+            <div class="jumbotron text-center">
+                <h1>Codecool Shop</h1>
+            </div>
+        </div>
+
+    <div class="section">
+
+        <div th:if="${cart.size()== 0}">
+
+            <h1>pusty koszyk</h1>
+        </div>
+        <div th:unless="${cart.size()==0}">
+
+            <div class="container" id="container">
+                <div class="cartWithProducts" id="cartWithProducts">
+                    <div class="ok" th:each="key : ${order.keySet()}" id="  " th:id="'product_'+${key.id}">
+                        <div class="singleProduct">
+
+                            <div class="image">
+                                <img class="image1"
+                                     th:attr="src='/static/img/product_' + ${key.id} + '.jpg'" alt=""/>
+                            </div>
+
+                            <div class="nameProduct">
+                                <div class="textProduct" th:text="${key.name}">Product name</div>
+                            </div>
+
+                            <div class="productQuantity">
+                                <div class="increaseButton">
+                                    <a class="btn btn btn-primary  decreaseQuantity" id="removeProduct" th:attr="data-id=${key.id},data-quantity=${order.get(key)},data-value=${key.defaultPrice}">-
+
+                        </a>
+                                </div>
+                                <div class="countProduct" id="" th:id="'count_' +${key.id}" th:text="${order.get(key)}"> 4 </div>
+                                <div class="decreaseButton">
+                                    <a class="btn btn btn-primary increaseQuantity"   id="addProduct" th:attr="data-id=${key.id},data-quantity=${order.get(key)},data-value=${key.defaultPrice}">+
+
+                        </a>
+                                </div>
+
+                            </div>
+
+                            <div class="value" th:with="result=${key.defaultPrice * order.get(key)}+' USD'">
+                                <div class="textProduct" id=" " th:id="'value_'+${key.id}" th:text="${result}">Product name</div>
+
+
+                            </div>
+                            <div class="deleteProduct">
+                                    <input type="submit" value="Delete"  id="delete-button" th:attr="data-name=${key.name}, data-id=${key.id}">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="orderValue" id="orderValue">
+                    <div class="test">
+                    <div class="text-value">
+                    <div class="textProduct">Value of products : </div>
+                    </div>
+                    <div class="textValue" id="final-value" th:text="${value} +' USD'">All value</div>
+                        </div>
+                    <div class="buttonPay">
+                        <a href="/payment">
+                    <button class="btn btn-dark selected">PAY</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="footer"></div>
+</div>
+</body>
+</html>
