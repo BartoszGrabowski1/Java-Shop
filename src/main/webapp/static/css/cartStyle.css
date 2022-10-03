@@ -1,0 +1,109 @@
+.container{
+    width: 100%;
+    height: 300px;
+}
+.cartWithProducts{
+    width: 70%;
+    border: 2px solid #23242a;
+    float: left;
+}
+.orderValue{
+    width: 30%;
+    height: 200px;
+    border: 2px solid #23242a;
+    float: left;
+}
+.ok{
+    width: 100%;
+    border: 1px solid green;
+    height: 60px;
+    padding: 5px;
+}
+.textProduct{
+    font-size: 15px;
+    /*font-size: 20px;*/
+    margin-top: 10px;
+}
+.singleProduct{
+
+}
+#img{
+    height: 50px;
+}
+.image{
+    width: 20%;
+height: 50px;
+
+    float: left;
+}
+.image1{
+
+height: 50px;
+}
+.nameProduct{
+width: 20%;
+    float: left;
+}
+.productQuantity{
+width: 20%;
+    float: left;
+}
+.value{
+width: 20%;
+    float: left;
+}
+.deleteProduct{
+    width: 20%;
+    float: left;
+}
+.text-value{
+    width: 70%;
+    float: left;
+}
+.textValue{
+    width: 30%;
+    float: left;
+    margin-top: 10px;
+    font-size: 15px;
+}
+.test{
+    margin-left: 10px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+.buttonPay{
+    margin-top: 50px;
+    padding: 30px;
+    text-align: center;
+
+
+}
+.increaseButton{
+     float: left;
+}
+.countProduct{
+     float: left;
+}
+.deleteProduct{
+     float: left;
+}
+.countProduct{
+    font-size: 15px;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+#delete-button {
+    background-color: #428bca;
+    color: white;
+    border: 1px #428bca solid;
+    border-radius: 5px;
+    /*margin-top: 7px;*/
+    height: 40px;
+}
+
+#delete-button:hover{
+    background-color: #26489a;
+    cursor: pointer;
+}
