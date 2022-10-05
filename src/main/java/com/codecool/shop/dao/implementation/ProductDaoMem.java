@@ -64,16 +64,15 @@ public class ProductDaoMem implements ProductDao {
     @Override
     public List<Product> getAll(){
         try(Connection connection = DataBaseManager.dataSource.getConnection()) {
-            String sql = "SELECT p.id,p.name, p.price, p.currency, p.description, c.id,c.name,c.department,c.description,s.id, s.name, s.description FROM product p " +
-                    "INNER JOIN supplier s on s.id = p.supplier_id INNER JOIN category c on c.id = p.category_id";
+            String sql = "SELECT id,name, price, currency, description,category_id,supplier_id FROM product";
             ResultSet resultSet = connection.createStatement().executeQuery(sql);
             List<Product> result = new ArrayList<>();
             Product product;
             while(resultSet.next()){
                 ProductCategory productCategory= ProductCategoryDaoMem.getInstance().find(resultSet.getInt(6));
                 productCategory.setId(resultSet.getInt(6));
-                Supplier supplier = SupplierDaoMem.getInstance().find(resultSet.getInt(10));
-                supplier.setId(resultSet.getInt(10));
+                Supplier supplier = SupplierDaoMem.getInstance().find(resultSet.getInt(7));
+                supplier.setId(resultSet.getInt(7));
                 product = new Product(resultSet.getString(2),
                         resultSet.getBigDecimal(3),
                         resultSet.getString(4),
