@@ -1,48 +1,33 @@
 package com.codecool.shop.model;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Order extends BaseModel{
     private Timestamp ordered_at;
     private String status;
     private int user_id;
+    private List<Product> productsList;
 
-    public Order(Timestamp ordered_at, String status, int user_id) {
-        super();
+    public Order(Timestamp ordered_at, String status, int user_id, List<Product> productsList) {
         this.ordered_at = ordered_at;
         this.status = status;
         this.user_id = user_id;
+        this.productsList = productsList;
     }
 
-    public Timestamp getOrdered_at() {
-        return ordered_at;
-    }
-
-    public void setOrdered_at(Timestamp ordered_at) {
-        this.ordered_at = ordered_at;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public int getUser_id() {
-        return user_id;
+    public void setProductsList(List<Product> productsList) {
+        this.productsList = productsList;
     }
 
     @Override
     public String toString() {
         return "Order{" +
-                "ordered_at=" + ordered_at +
+                ", order_id=" + id +
+                ", ordered_at=" + ordered_at +
                 ", status='" + status + '\'' +
                 ", user_id=" + user_id +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
+                ", productsList=" + productsList +
                 '}';
     }
 }

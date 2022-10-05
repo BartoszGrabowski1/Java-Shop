@@ -114,3 +114,4 @@ INSERT INTO public.order (id, ordered_at, status, user_id) VALUES (2,'2022-10-05
 INSERT INTO public.ordered_products (id, product_id, order_id) VALUES (1,1,1);
 INSERT INTO public.ordered_products (id, product_id, order_id) VALUES (2,4,1);
 INSERT INTO public.ordered_products (id, product_id, order_id) VALUES (3,5,1);
+INSERT INTO public.ordered_products (id, product_id, order_id) VALUES (4,2,2);

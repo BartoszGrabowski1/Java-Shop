@@ -38,14 +38,14 @@
 
     <h1>Brak Zamówień</h1>
 </div>
-<div th:unless="${ordersList.size()== 0}" th:each="element: ${ordersList}" class="testOrder">
-    <div class="testOrder" th:each="key: ${ordersMapOrderIdToListProducts.keySet()}">
-        <div class="testOrder1" th:if="${element.id == key}">
+<div th:unless="${ordersList.size()== 0}" th:each="order: ${ordersList}" class="testOrder">
+
+        <div class="testOrder1" >
             <div class="container d-flex justify-content-center mt-5 mb-5">
                 <div class="row g-3">
                     <div class="col-md-6">
-                        <span style="font-weight: bold">Order</span>
-                        <div class="card">
+                        <span style="font-weight: bold" th:text="Order + ${order.id}" >Order</span>
+                        <div class="card" >
                             <hr class="mt-0 line">
                             <div class="p-3 d-flex justify-content-between">
                                 <div class="d-flex flex-column">
@@ -56,20 +56,15 @@
                                             <th style="padding-left: 100px">Price</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <div class="ok"
-                                             th:each="prodsList : ${ordersMapOrderIdToListProducts.get(key)}">
-                                            <div th:each="prod : ${prodsList}">
+                                        <tbody th:each="product : ${order.getProductsList()} ">
                                                 <tr>
-                                                    <td style="padding-right: 100px" th:text="${prod.name}">Iphone 5
+                                                    <td style="padding-right: 100px" th:text="${product.name}">Iphone 5
                                                         super
                                                         duper
                                                     </td>
-                                                    <td style="padding-left: 100px" th:text="${prod.getPrice()}">500 $
+                                                    <td style="padding-left: 100px" th:text="${product.getPrice()}">500 $
                                                     </td>
                                                 </tr>
-                                            </div>
-                                        </div>
                                         </tbody>
                                     </table>
                                 </div>
@@ -87,8 +82,8 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div>
+</div>
 
     <div th:replace="footer.html :: copy"></div>
 
