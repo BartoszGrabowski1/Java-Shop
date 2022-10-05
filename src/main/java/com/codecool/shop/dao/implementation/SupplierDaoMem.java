@@ -63,7 +63,6 @@ public class SupplierDaoMem implements SupplierDao {
                 supplier = new Supplier(resultSet.getString(2), resultSet.getString(3));
                 supplier.setId(resultSet.getInt(1));
                 result.add(supplier);
-                System.out.println(supplier);
             }
             return result;
 

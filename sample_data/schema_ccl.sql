@@ -18,7 +18,7 @@ CREATE TABLE public.user (
                                    id serial NOT NULL PRIMARY KEY,
                                    name text NOT NULL,
                                    mail text NOT NULL,
-                                   password integer NOT NULL
+                                   password text NOT NULL
 
 );
 
@@ -56,8 +56,7 @@ CREATE TABLE public.cart(
 DROP TABLE IF EXISTS public.order;
 CREATE TABLE public.order(
                             id serial NOT NULL PRIMARY KEY,
-                            ordered_at timestamp NOT NULL,
-                            order_date date NOT NULL,
+                            ordered_at timestamp without time zone,
                             status text NOT NULL,
                             user_id integer NOT NULL
 );
@@ -107,3 +106,11 @@ INSERT INTO product (name, price, currency, description, category_id, supplier_i
 INSERT INTO product (name, price, currency, description, category_id, supplier_id) VALUES ('Laptop lenovo 3500', 1000, 'USD', 'Good laptop too', 3, 3);
 INSERT INTO product (name, price, currency, description, category_id, supplier_id) VALUES ('Laptop asus 500', 800, 'USD', 'Good asus laptop too', 3, 4);
 
+INSERT INTO public.user (name, mail, password) VALUES ('Developer', 'dev@mail.com','developer');
+
+INSERT INTO public.order (id, ordered_at, status, user_id) VALUES (1,'2022-10-05 09:29:00','done',1);
+INSERT INTO public.order (id, ordered_at, status, user_id) VALUES (2,'2022-10-05 10:29:00','waiting',1);
+
+INSERT INTO public.ordered_products (id, product_id, order_id) VALUES (1,1,1);
+INSERT INTO public.ordered_products (id, product_id, order_id) VALUES (2,4,1);
+INSERT INTO public.ordered_products (id, product_id, order_id) VALUES (3,5,1);

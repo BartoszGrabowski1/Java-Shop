@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title>Codecool Shop</title>
+
+    <!-- Bootstrap components -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- End of Bootstrap components -->
+
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
+    <script type="text/javascript" src="static/js/cart.js" defer></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+</head>
+
+<body onload="loadCartSize()">
+<div th:replace="navbar.html :: copy"></div>
+
+<div class="jumbotron text-center">
+    <h1>Codecool Shop</h1>
+</div>
+
+
+<div th:if="${ordersList.size()== 0}">
+
+    <h1>Brak Zamówień</h1>
+</div>
+<div th:unless="${ordersList.size()== 0}" th:each="element: ${ordersList}" class="testOrder">
+    <div class="testOrder" th:each="key: ${ordersMapOrderIdToListProducts.keySet()}">
+        <div class="testOrder1" th:if="${element.id == key}">
+            <div class="container d-flex justify-content-center mt-5 mb-5">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <span style="font-weight: bold">Order</span>
+                        <div class="card">
+                            <hr class="mt-0 line">
+                            <div class="p-3 d-flex justify-content-between">
+                                <div class="d-flex flex-column">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th style="padding-right: 100px">Item</th>
+                                            <th style="padding-left: 100px">Price</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <div class="ok"
+                                             th:each="prodsList : ${ordersMapOrderIdToListProducts.get(key)}">
+                                            <div th:each="prod : ${prodsList}">
+                                                <tr>
+                                                    <td style="padding-right: 100px" th:text="${prod.name}">Iphone 5
+                                                        super
+                                                        duper
+                                                    </td>
+                                                    <td style="padding-left: 100px" th:text="${prod.getPrice()}">500 $
+                                                    </td>
+                                                </tr>
+                                            </div>
+                                        </div>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!--                            <div class="p-3 d-flex justify-content-between">-->
+                            <!--                                <div class="d-flex flex-column">-->
+                            <!--                                    <div class="textProduct" style="font-weight: bold;">Value of products :</div>-->
+                            <!--                                </div>-->
+                            <!--                                <div class="textValue" style="padding-right: 70px; font-weight: bold;"-->
+                            <!--                                     th:text="${value} +' USD'">All value-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="footer.html :: copy"></div>
+
+</body>
+</html>
