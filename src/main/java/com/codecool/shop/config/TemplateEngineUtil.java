@@ -4,6 +4,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebListener;
 import org.thymeleaf.TemplateEngine;
 
+import java.sql.DriverManager;
+
 /**
  * Store and retrieves Thymeleaf TemplateEngine into the application servlet context.
  */
@@ -11,7 +13,6 @@ import org.thymeleaf.TemplateEngine;
 public class TemplateEngineUtil {
 
     private static final String TEMPLATE_ENGINE_ATTR = "com.thymeleafexamples.thymeleaf3.TemplateEngineInstance";
-
     public static void storeTemplateEngine(ServletContext context, TemplateEngine engine) {
         context.setAttribute(TEMPLATE_ENGINE_ATTR, engine);
     }
