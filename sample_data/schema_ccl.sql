@@ -12,6 +12,19 @@ ALTER TABLE IF EXISTS ONLY public.ordered_products
     DROP CONSTRAINT IF EXISTS fk_product_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.ordered_products
     DROP CONSTRAINT IF EXISTS fk_order_id CASCADE;
+ALTER TABLE IF EXISTS ONLY public.user_billing
+    DROP CONSTRAINT IF EXISTS fk_user_id CASCADE;
+
+DROP TABLE IF EXISTS public.user_billing;
+CREATE  TABLE public.user_billing(
+                                     id serial NOT NULL PRIMARY KEY,
+                                     phone integer NOT NULL,
+                                     city text NOT NULL,
+                                     street text NOT NULL,
+                                     zip_code integer NOT NULL,
+                                     user_id integer NOT NULL
+
+);
 
 DROP TABLE IF EXISTS public.shop_user;
 CREATE TABLE public.shop_user (
@@ -87,6 +100,8 @@ ALTER TABLE ONLY public.ordered_products
 
 ALTER TABLE ONLY public.ordered_products
     ADD CONSTRAINT fk_order_id FOREIGN KEY (order_id) REFERENCES public.order(id);
+ALTER TABLE ONLY public.user_billing
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES public.shop_user(id);
 
 INSERT INTO supplier (name, description) VALUES ('Apple', 'Smartphone');
 INSERT INTO supplier (name, description) VALUES ('Amazon','Digital content and services');
