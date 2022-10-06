@@ -9,6 +9,9 @@ public class BaseModel {
     protected String name;
     protected String description;
 
+    public BaseModel() {
+    }
+
     public BaseModel(String name) {
         this.name = name;
     }

@@ -27,6 +27,7 @@ public class LoginController extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
         HttpSession httpSession = req.getSession();
         if(UserDaoMem.findByEmail(req.getParameter("login_email"))==null){
             httpSession.setAttribute("loginStatus", false);
