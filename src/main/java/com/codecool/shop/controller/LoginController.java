@@ -26,7 +26,7 @@ public class LoginController extends HttpServlet {
         if(Objects.equals(req.getParameter("login_email"), "dev@mail.com") && Objects.equals(req.getParameter("login_password"), "developer")){
             HttpSession httpSession = req.getSession();
             httpSession.setAttribute("name", "Developer");
-            httpSession.setAttribute("id", "1");
+            httpSession.setAttribute("userId", "1");
             resp.sendRedirect(req.getContextPath()+"/");
         }
     }

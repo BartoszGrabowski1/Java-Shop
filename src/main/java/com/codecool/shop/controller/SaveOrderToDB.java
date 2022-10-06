@@ -42,18 +42,21 @@ public class SaveOrderToDB extends HttpServlet {
         context.setVariable("name", session.getAttribute("name"));
         System.out.println("test cart");
         System.out.println(cartService.getSelectedProducts());
-        saveOrderToDB(Integer.parseInt(idUser));
-        deleteCartInDB(Integer.parseInt(idUser));
+        serviceOrder(Integer.parseInt(idUser));
         engine.process("product/index.html", context, resp.getWriter());
     }
 
     Instant instant = Instant.now();
     Timestamp sqlTimestamp = Timestamp.from(instant);
 
-    private void test(int userId){
-
+    private void serviceOrder(int userId) {
         saveOrderToDB(userId);
+        int orderId = getOrderId(userId);
+        System.out.println(orderId);
+        saveOrderedProductsToDB(orderId);
+        deleteCartInDB(userId);
     }
+
     void saveOrderToDB(int userId) {
         try (Connection conn = DataBaseManager.dataSource.getConnection()) {
             String sql = "INSERT INTO public.order (ordered_at,status,user_id) VALUES (?,?,?)";
@@ -79,7 +82,8 @@ public class SaveOrderToDB extends HttpServlet {
         }
 
     }
-     void saveOrderedProductToDB(int productId, int orderId) {
+
+    void saveOrderedProductToDB(int productId, int orderId) {
         try (Connection conn = DataBaseManager.dataSource.getConnection()) {
             String sql = "INSERT INTO public.ordered_products (product_id, order_id) VALUES (?,?)";
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -91,7 +95,8 @@ public class SaveOrderToDB extends HttpServlet {
         }
 
     }
-    private List<Integer> ListIdProducts(int userId){
+
+    private List<Integer> ListIdProducts(int userId) {
         try (Connection connection = DataBaseManager.dataSource.getConnection()) {
             String sql = "SELECT  product_id FROM cart WHERE user_id='" + userId + "'";
             ResultSet resultSetOrder = connection.createStatement().executeQuery(sql);
@@ -104,10 +109,25 @@ public class SaveOrderToDB extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
-    void saveOrderedProductsToDB(int orderId){
+
+    void saveOrderedProductsToDB(int orderId) {
         List<Integer> list = ListIdProducts(orderId);
         for (Integer integer : list) {
             saveOrderedProductToDB(integer, orderId);
+        }
+    }
+
+    private int getOrderId(int userId) {
+        try (Connection connection = DataBaseManager.dataSource.getConnection()) {
+            String sql = "SELECT  MAX(id) FROM public.order WHERE user_id='" + userId + "'";
+            ResultSet resultSetOrder = connection.createStatement().executeQuery(sql);
+            int result = 0;
+            while (resultSetOrder.next()) {
+                result += resultSetOrder.getInt(1);
+            }
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
