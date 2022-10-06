@@ -20,6 +20,10 @@ public class Order extends BaseModel{
         this.productsList = productsList;
     }
 
+    public List<Product> getProductsList() {
+        return productsList;
+    }
+
     @Override
     public String toString() {
         return "Order{" +

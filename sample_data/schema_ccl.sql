@@ -107,11 +107,12 @@ INSERT INTO product (name, price, currency, description, category_id, supplier_i
 INSERT INTO product (name, price, currency, description, category_id, supplier_id) VALUES ('Laptop asus 500', 800, 'USD', 'Good asus laptop too', 3, 4);
 
 INSERT INTO public.user (name, mail, password) VALUES ('Developer', 'dev@mail.com','developer');
-
-INSERT INTO public.order (id, ordered_at, status, user_id) VALUES (1,'2022-10-05 09:29:00','done',1);
-INSERT INTO public.order (id, ordered_at, status, user_id) VALUES (2,'2022-10-05 10:29:00','waiting',1);
-
-INSERT INTO public.ordered_products (id, product_id, order_id) VALUES (1,1,1);
-INSERT INTO public.ordered_products (id, product_id, order_id) VALUES (2,4,1);
-INSERT INTO public.ordered_products (id, product_id, order_id) VALUES (3,5,1);
-INSERT INTO public.ordered_products (id, product_id, order_id) VALUES (4,2,2);
+INSERT INTO public.cart (id, product_id, user_id) VALUES (1,1,1);
+INSERT INTO public.cart (id, product_id, user_id) VALUES (2,2,1);
+-- INSERT INTO public.order (id, ordered_at, status, user_id) VALUES (1,'2022-10-05 09:29:00','done',1);
+-- INSERT INTO public.order (id, ordered_at, status, user_id) VALUES (2,'2022-10-05 10:29:00','waiting',1);
+--
+-- INSERT INTO public.ordered_products (id, product_id, order_id) VALUES (1,1,1);
+-- INSERT INTO public.ordered_products (id, product_id, order_id) VALUES (2,4,1);
+-- INSERT INTO public.ordered_products (id, product_id, order_id) VALUES (3,5,1);
+-- INSERT INTO public.ordered_products (id, product_id, order_id) VALUES (4,2,2);

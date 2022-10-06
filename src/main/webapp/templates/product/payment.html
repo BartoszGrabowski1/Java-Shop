@@ -22,6 +22,7 @@
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
     <script type="text/javascript" src="static/js/cart.js" defer></script>
+    <script type="text/javascript" src="static/js/order.js" defer></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
 </head>
@@ -132,7 +133,7 @@
                     <div class="textValue" style="padding-right: 70px; font-weight: bold;" th:text="${value} +' USD'">All value</div>
                 </div>
                 <div class="p-3">
-                    <button class="btn btn-primary btn-block free-button">Proceed to payment</button>
+                    <button class="btn btn-primary btn-block free-button" id="saveOrder" th:attr="data-id=${name}">Proceed to payment</button>
                 </div>
             </div>
         </div>

@@ -24,7 +24,7 @@ public class OrderController extends HttpServlet {
         HttpSession session = req.getSession();
 
         OrdersDao ordersDaoStore = OrdersDaoMem.getInstance();
-        ordersDaoStore.setData(session.getAttribute("id").toString());
+        ordersDaoStore.setData(session.getAttribute("userId").toString());
         OrdersService ordersService = new OrdersService(ordersDaoStore);
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
