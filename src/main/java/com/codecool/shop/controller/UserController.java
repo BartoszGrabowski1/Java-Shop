@@ -18,6 +18,9 @@ public class UserController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+        HttpSession httpSession = req.getSession();
+        context.setVariable("User", httpSession.getAttribute("User"));
+        context.setVariable("name", httpSession.getAttribute("name"));
         engine.process("product/user.html", context, resp.getWriter());
     }
 }

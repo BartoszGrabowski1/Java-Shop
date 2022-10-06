@@ -41,7 +41,6 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CartDao cartDaoStore = CartDaoMem.getInstance();
         ProductDao productDataStore = ProductDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
@@ -49,14 +48,13 @@ public class ProductController extends HttpServlet {
 
         SupplierService supplierService = new SupplierService(supplierDataStore);
         ProductService productService = new ProductService(productDataStore,productCategoryDataStore);
-        CartService cartService = new CartService(cartDaoStore);
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         filterCategoriesAndSuppliers(req, supplierService, productService, context);
 
-
+        context.setVariable("cartSize",session.getAttribute("cartSize"));
         context.setVariable("categories", productCategoryDataStore.getAll());
         context.setVariable("suppliers", supplierService.getAllSuppliers());
         context.setVariable("name", session.getAttribute("name"));

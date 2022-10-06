@@ -26,15 +26,15 @@
 
 <body style="background-color: #eee;">
 <div th:replace="navbar.html :: copy"></div>
+<form class="form-horizontal" action='' method="POST">
   <div class="container py-5">
-
     <div class="row">
       <div class="col-lg-4">
         <div class="card mb-4">
           <div class="card-body text-center">
             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
                  class="rounded-circle img-fluid" style="width: 150px;">
-            <h5 class="my-3">Name</h5>
+            <h5 class="my-3" th:text="${User.getName()}">Name</h5>
           </div>
         </div>
       </div>
@@ -46,7 +46,8 @@
                 <p class="mb-0">Name</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">Johnatan</p>
+                <input th:if="${edit == true}" type="text" id="user_name" name="user_name" th:value="${User.getName()}"/>
+                <p th:unless="${edit == true}"class="text-muted mb-0" id="dupa" th:text="${User.getName()}">Johnatan</p>
               </div>
             </div>
             <hr>
@@ -55,7 +56,8 @@
                 <p class="mb-0">Email</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">example@example.com</p>
+                <input th:if="${edit == true}" type="email" id="user_mail" name="user_mail" th:value="${User.getEmail()}"/>
+                <p th:unless="${edit == true}" class="text-muted mb-0" th:text="${User.getEmail()}">example@example.com</p>
               </div>
             </div>
             <hr>
@@ -64,7 +66,8 @@
                 <p class="mb-0">Phone</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">(097) 234-5678</p>
+                <input th:if="${edit == true}" type="number" id="user_phone" name="user_phone" th:placeholder="${telefon}"/>
+                <p th:unless="${edit == true}" class="text-muted mb-0" th:if="${User.getBilling()!= null}" th:text="${User.getBilling().getPhone()}">Phone Number</p>
               </div>
             </div>
             <hr>
@@ -73,16 +76,18 @@
                 <p class="mb-0">City</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">Cracow</p>
+                <input th:if="${edit == true}" type="text" id="user_city" name="user_city" th:placeholder="${city}"/>
+                <p th:unless="${edit == true}" class="text-muted mb-0" th:if="${User.getBilling()!= null}" th:text="${User.getBilling().getCity()}">Cracow</p>
               </div>
             </div>
             <hr>
             <div class="row">
               <div class="col-sm-3">
-                <p class="mb-0">Street</p>
+                <p class="mb-0" contenteditable="true">Street</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">Karmelicka 6</p>
+                <input th:if="${edit == true}" type="text" id="user_street" name="user_street" th:placeholder="${street}"/>
+                <p th:unless="${edit == true}" class="text-muted mb-0" th:if="${User.getBilling()!= null}" th:text="${User.getBilling().getStreet()}">Karmelicka 6</p>
               </div>
             </div>
             <div class="row">
@@ -90,10 +95,25 @@
                 <p class="mb-0">Zip-code</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">30-238</p>
+                <input th:if="${edit == true}" type="number" id="user_zip" name="user_zip" th:placeholder="${zip_code}"/>
+                <p th:unless="${edit == true}" class="text-muted mb-0" th:if="${User.getBilling()!= null}" th:text="${User.getBilling().getZipCode()}">30-238</p>
               </div>
             </div>
           </div>
+        </div>
+        <div>
+        <div th:if="${edit == true}" class="registration">
+            <button type="submit" formaction="/billing" formmethod="post" class="register-button">Save</button>
+        </div>
+      </div>
+        <div th:unless="${edit == true}" class="registration">
+          <button type="submit" formaction="/billing" formmethod="get" class="register-button">Edit</button>
+        </div>
+</form>
+        <div class="login">
+          <a href="/order">
+            <button type="button" class="login-button">My Orders</button>
+          </a>
         </div>
       </div>
     </div>

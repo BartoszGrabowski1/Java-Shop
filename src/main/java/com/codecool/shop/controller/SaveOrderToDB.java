@@ -34,16 +34,13 @@ public class SaveOrderToDB extends HttpServlet {
         CartService cartService = new CartService(cartDaoStore);
         HttpSession session = req.getSession();
         String idUser = session.getAttribute("userId").toString();
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("cart", cartService.getSelectedProducts());
         context.setVariable("value", cartService.getValue());
         context.setVariable("name", session.getAttribute("name"));
-        System.out.println("test user");
-        System.out.println(Integer.parseInt(idUser));
+        session.setAttribute("cartSize", 0);
         serviceOrder(Integer.parseInt(idUser));
         resp.sendRedirect(req.getContextPath()+"/order");
-//        engine.process("product/order.html", context, resp.getWriter());
     }
 
     Instant instant = Instant.now();
@@ -52,7 +49,7 @@ public class SaveOrderToDB extends HttpServlet {
     private void serviceOrder(int userId) {
         saveOrderToDB(userId);
         int orderId = getOrderId(userId);
-        saveOrderedProductsToDB(userId);
+        saveOrderedProductsToDB(userId, orderId);
         deleteCartInDB(userId);
     }
 
@@ -89,7 +86,6 @@ public class SaveOrderToDB extends HttpServlet {
             statement.setInt(1, productId);
             statement.setInt(2, orderId);
             statement.executeUpdate();
-            System.out.println("DUPA");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -97,8 +93,7 @@ public class SaveOrderToDB extends HttpServlet {
     }
 
     private List<Integer> ListIdProducts(int userId) {
-        System.out.println("dupa user");
-        System.out.println(userId);
+
         try (Connection connection = DataBaseManager.dataSource.getConnection()) {
             String sql = "SELECT  product_id FROM public.cart WHERE user_id=" +userId;
             ResultSet resultSetOrder = connection.createStatement().executeQuery(sql);
@@ -109,18 +104,14 @@ public class SaveOrderToDB extends HttpServlet {
                 number = resultSetOrder.getInt(1);
                 result.add(number);
             }
-            System.out.println("dupawwwwwww");
-            System.out.println(result);
             return result;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    void saveOrderedProductsToDB(int orderId) {
-        List<Integer> list = ListIdProducts(orderId);
-        System.out.println("dupa2");
-        System.out.println(list.size());
+    void saveOrderedProductsToDB(int userId, int orderId) {
+        List<Integer> list = ListIdProducts(userId);
         for (Integer integer : list) {
             saveOrderedProductToDB(integer, orderId);
         }

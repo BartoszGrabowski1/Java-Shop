@@ -6,6 +6,8 @@ public class User {
     private String password;
     private String name;
 
+    private Billing billing;
+
     public User(String email, String password, String name) {
         this.email = email;
         this.password = password;
@@ -45,4 +47,11 @@ public class User {
         this.name = name;
     }
 
+    public void setBilling(Billing billing) {
+        this.billing = billing;
+    }
+
+    public Billing getBilling() {
+        return billing;
+    }
 }

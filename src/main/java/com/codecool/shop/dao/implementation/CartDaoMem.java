@@ -65,6 +65,7 @@ public class CartDaoMem implements CartDao {
         for (Product selectedProduct : data) {
             if (selectedProduct.getId()==product.getId()) {
                 data.remove(selectedProduct);
+                break;
             }
         }
     }
@@ -100,4 +101,14 @@ public class CartDaoMem implements CartDao {
         return data;
     }
 
+    @Override
+    public int getNumberOfItemsWithGivenName(String name){
+        int sum =0;
+        for(Product selectedProduct:data){
+            if(Objects.equals(selectedProduct.getName(), name)){
+                sum += 1;
+            }
+        }
+        return sum;
+    }
 }

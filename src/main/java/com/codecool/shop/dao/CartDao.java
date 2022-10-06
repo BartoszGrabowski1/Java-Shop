@@ -27,4 +27,6 @@ public interface CartDao {
 
     List<Product> getSelectedProducts();
 
+    int getNumberOfItemsWithGivenName(String name);
+
 }
