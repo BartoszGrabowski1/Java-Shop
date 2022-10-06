@@ -33,7 +33,11 @@ public class CartDaoMem implements CartDao {
     @Override
     public void addProduct(Product product) {
         data.add(product);
+    }
 
+    @Override
+    public void clearData() {
+        data.clear();
     }
 
 
@@ -95,4 +99,5 @@ public class CartDaoMem implements CartDao {
     public List<Product> getSelectedProducts() {
         return data;
     }
+
 }
