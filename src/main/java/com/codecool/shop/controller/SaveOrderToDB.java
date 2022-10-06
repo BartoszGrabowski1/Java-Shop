@@ -34,16 +34,16 @@ public class SaveOrderToDB extends HttpServlet {
         CartService cartService = new CartService(cartDaoStore);
         HttpSession session = req.getSession();
         String idUser = session.getAttribute("userId").toString();
-        System.out.println(idUser);
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("cart", cartService.getSelectedProducts());
         context.setVariable("value", cartService.getValue());
         context.setVariable("name", session.getAttribute("name"));
-        System.out.println("test cart");
-        System.out.println(cartService.getSelectedProducts());
+        System.out.println("test user");
+        System.out.println(Integer.parseInt(idUser));
         serviceOrder(Integer.parseInt(idUser));
-        engine.process("product/index.html", context, resp.getWriter());
+        resp.sendRedirect(req.getContextPath()+"/order");
+//        engine.process("product/order.html", context, resp.getWriter());
     }
 
     Instant instant = Instant.now();
@@ -52,8 +52,7 @@ public class SaveOrderToDB extends HttpServlet {
     private void serviceOrder(int userId) {
         saveOrderToDB(userId);
         int orderId = getOrderId(userId);
-        System.out.println(orderId);
-        saveOrderedProductsToDB(orderId);
+        saveOrderedProductsToDB(userId);
         deleteCartInDB(userId);
     }
 
@@ -90,6 +89,7 @@ public class SaveOrderToDB extends HttpServlet {
             statement.setInt(1, productId);
             statement.setInt(2, orderId);
             statement.executeUpdate();
+            System.out.println("DUPA");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -97,13 +97,20 @@ public class SaveOrderToDB extends HttpServlet {
     }
 
     private List<Integer> ListIdProducts(int userId) {
+        System.out.println("dupa user");
+        System.out.println(userId);
         try (Connection connection = DataBaseManager.dataSource.getConnection()) {
-            String sql = "SELECT  product_id FROM cart WHERE user_id='" + userId + "'";
+            String sql = "SELECT  product_id FROM public.cart WHERE user_id=" +userId;
             ResultSet resultSetOrder = connection.createStatement().executeQuery(sql);
             List<Integer> result = new ArrayList<>();
+            int number;
+
             while (resultSetOrder.next()) {
-                result.add(resultSetOrder.getInt(1));
+                number = resultSetOrder.getInt(1);
+                result.add(number);
             }
+            System.out.println("dupawwwwwww");
+            System.out.println(result);
             return result;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -112,6 +119,8 @@ public class SaveOrderToDB extends HttpServlet {
 
     void saveOrderedProductsToDB(int orderId) {
         List<Integer> list = ListIdProducts(orderId);
+        System.out.println("dupa2");
+        System.out.println(list.size());
         for (Integer integer : list) {
             saveOrderedProductToDB(integer, orderId);
         }

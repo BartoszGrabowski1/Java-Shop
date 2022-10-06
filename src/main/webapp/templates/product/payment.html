@@ -132,9 +132,11 @@
                     </div>
                     <div class="textValue" style="padding-right: 70px; font-weight: bold;" th:text="${value} +' USD'">All value</div>
                 </div>
+                <form class="form-horizontal" action='' method="POST">
                 <div class="p-3">
-                    <button class="btn btn-primary btn-block free-button" id="saveOrder" th:attr="data-id=${name}">Proceed to payment</button>
+                    <button type="submit" formaction="/save_order" formmethod="post" class="btn btn-primary btn-block free-button" id="saveOrder" th:attr="data-id=${name}">Proceed to payment</button>
                 </div>
+                    </form>
             </div>
         </div>
     </div>

@@ -106,7 +106,7 @@ INSERT INTO product (name, price, currency, description, category_id, supplier_i
 INSERT INTO product (name, price, currency, description, category_id, supplier_id) VALUES ('Laptop lenovo 3500', 1000, 'USD', 'Good laptop too', 3, 3);
 INSERT INTO product (name, price, currency, description, category_id, supplier_id) VALUES ('Laptop asus 500', 800, 'USD', 'Good asus laptop too', 3, 4);
 
-INSERT INTO public.user (name, mail, password) VALUES ('Developer', 'dev@mail.com','developer');
+INSERT INTO public.shop_user (name, mail, password) VALUES ('Developer', 'dev@mail.com','developer');
 INSERT INTO public.cart (id, product_id, user_id) VALUES (1,1,1);
 INSERT INTO public.cart (id, product_id, user_id) VALUES (2,2,1);
 -- INSERT INTO public.order (id, ordered_at, status, user_id) VALUES (1,'2022-10-05 09:29:00','done',1);
