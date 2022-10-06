@@ -54,12 +54,6 @@ public class ProductDaoMem implements ProductDao {
         data = getAll();
     }
 
-    public Supplier getSupplier(SupplierDaoMem supplierDaoMem, int supplierId){
-       return supplierDaoMem.find(supplierId);
-    }
-    public ProductCategory getProductCategory(ProductCategoryDaoMem productCategoryDaoMem, int categoryId){
-        return productCategoryDaoMem.find(categoryId);
-    }
 
     @Override
     public List<Product> getAll(){
