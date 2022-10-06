@@ -44,28 +44,34 @@
             <div class="container d-flex justify-content-center mt-5 mb-5">
                 <div class="row g-3">
                     <div class="col-md-6">
-                        <span style="font-weight: bold" th:text="Order + ${order.id}" >Order</span>
+                        <span style="font-weight: bold" th:text="Order + ${order.id}">Order</span>
                         <div class="card" >
+                            <span style="font-weight: bold" th:text="Status+': ' + ${order.getStatus}+'      '+Date+': '+ ${order.getOrdered_at}">Order</span>
                             <hr class="mt-0 line">
                             <div class="p-3 d-flex justify-content-between">
                                 <div class="d-flex flex-column">
                                     <table>
                                         <thead>
                                         <tr>
-                                            <th style="padding-right: 100px">Item</th>
-                                            <th style="padding-left: 100px">Price</th>
+                                            <th style="padding-right: 150px">Item</th>
+                                            <th style="padding-left: 150px">Price</th>
+
                                         </tr>
                                         </thead>
-                                        <tbody th:each="product : ${order.getProductsList()} ">
+                                        <tbody th:each="product,iterStart : ${order.getProductsList()} ">
                                                 <tr>
-                                                    <td style="padding-right: 100px" th:text="${product.name}">Iphone 5
+                                                    <td style="padding-right: 150px" th:text="${product.name}">Iphone 5
                                                         super
                                                         duper
                                                     </td>
-                                                    <td style="padding-left: 100px" th:text="${product.getPrice()}">500 $
+                                                    <td style="padding-left: 150px" th:text="${product.getPrice()}">500 $
                                                     </td>
                                                 </tr>
                                         </tbody>
+                                        <tr>
+                                            <th style="padding-right: 150px"></th>
+                                            <th style="padding-left: 150px" th:text="Total+': '+${order.sumOfProducts()}+' USD'">Value</th>
+                                        </tr>
                                     </table>
                                 </div>
                             </div>

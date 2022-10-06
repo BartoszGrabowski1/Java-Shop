@@ -1,6 +1,5 @@
 package com.codecool.shop.dao.implementation;
 
-import com.codecool.shop.dao.UserDao;
 import com.codecool.shop.dao.database.DataBaseManager;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.User;
@@ -57,7 +56,20 @@ public class UserDaoMem  {
 
         } catch (SQLException e) {
             return  null;
-//            throw new RuntimeException(e);
         }
+    }
+
+    public static void updateUserInfo(User user){
+        try (Connection connection = DataBaseManager.dataSource.getConnection()) {
+            String sql = "UPDATE shop_user SET name=?, mail=? WHERE id=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getEmail());
+            statement.setInt(3,user.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while updating player info", e);
+        }
+
     }
 }

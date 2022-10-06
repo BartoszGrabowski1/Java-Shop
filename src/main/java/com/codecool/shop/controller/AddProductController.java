@@ -19,6 +19,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import static java.lang.Integer.parseInt;
+
 
 @WebServlet(name = "AddToCartServlet", urlPatterns = {"/add"})
 public class AddProductController extends HttpServlet {
@@ -29,6 +31,7 @@ public class AddProductController extends HttpServlet {
         HttpSession httpSession = req.getSession();
         String id = req.getParameter("prod_id");
         int productId = Integer.parseInt(id);
+        httpSession.setAttribute("cartSize", parseInt(httpSession.getAttribute("cartSize").toString())+1);
         resp.sendRedirect("/");
         String idUser = httpSession.getAttribute("userId").toString();
         saveProductFromCartToDB(productId, Integer.parseInt(idUser));
@@ -42,7 +45,6 @@ public class AddProductController extends HttpServlet {
             preparedStatement.setInt(1, productId);
             preparedStatement.setInt(2, userId);
             preparedStatement.executeUpdate();
-//            ResultSet resultSet = connection.createStatement().executeQuery(sql);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -1,6 +1,8 @@
 package com.codecool.shop.model;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class Order extends BaseModel{
@@ -24,6 +26,21 @@ public class Order extends BaseModel{
         return productsList;
     }
 
+    public String getOrdered_at() {
+        String s = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(ordered_at);
+        return s;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+    public BigDecimal sumOfProducts(){
+        BigDecimal sum = BigDecimal.valueOf(0);
+        for (Product product : productsList) {
+            sum = sum.add(product.getDefaultPrice());
+        }
+        return sum;
+    }
     @Override
     public String toString() {
         return "Order{" +

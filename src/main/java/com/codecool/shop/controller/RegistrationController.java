@@ -1,6 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.implementation.BillingDaoMem;
 import com.codecool.shop.dao.implementation.UserDaoMem;
 import com.codecool.shop.model.User;
 import org.thymeleaf.TemplateEngine;
@@ -33,8 +34,11 @@ public class RegistrationController extends HttpServlet {
             if(Objects.equals(req.getParameter("registration_password"), req.getParameter("repeat_password"))){
                 User user =new User( req.getParameter("registration_email"), req.getParameter("registration_password"),req.getParameter("registration_name"));
                 UserDaoMem.add(user);
-                httpSession.setAttribute("name", user.getName());
+                user.setBilling(BillingDaoMem.findByUserId(user.getId()));
                 httpSession.setAttribute("userId", UserDaoMem.findByEmail(req.getParameter("registration_email")).getId());
+                httpSession.setAttribute("User", user);
+                httpSession.setAttribute("cartSize",CartController.cartSIze(user.getId()));
+                httpSession.setAttribute("name", user.getName());
                 resp.sendRedirect(req.getContextPath()+"/");
             }
         }

@@ -42,10 +42,12 @@ public class CartController extends HttpServlet {
         HttpSession session = req.getSession();
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+
         context.setVariable("cart", cartService.getSelectedProducts());
         context.setVariable("value", cartService.getValue());
         context.setVariable("order", cartService.getGroupProducts());
         context.setVariable("name", session.getAttribute("name"));
+        context.setVariable("cartSize",session.getAttribute("cartSize"));
 
         engine.process("cart/cart.html", context, resp.getWriter());
     }
@@ -63,7 +65,16 @@ public class CartController extends HttpServlet {
             }
         }
     }
-
+    public static int cartSIze(int id){
+        try(Connection connection = DataBaseManager.dataSource.getConnection())  {
+            String sql = "SELECT COUNT(*) as cart_size FROM cart WHERE user_id ="+id;
+            ResultSet resultSet = connection.createStatement().executeQuery(sql);
+            resultSet.next();
+            return resultSet.getInt(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     boolean checkIfSomethingInCartChange(int userId){
         List<Product> cartDB = new ArrayList<>();
 

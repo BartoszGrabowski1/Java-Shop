@@ -5,6 +5,7 @@ const CartSize = document.getElementById('badge');
 const RemoveToCart = document.getElementsByClassName('removeProduct');
 const OrderSummary = document.getElementById('final-value');
 const DeleteButtons = document.getElementsByClassName('deleteProduct');
+let cartSizeDiv = document.getElementById("cartSize").textContent;
 
 for(let button of DeleteButtons){
     button.addEventListener("click",removeGivenProduct);
@@ -96,20 +97,29 @@ function increaseCartSize() {
     let text = CartSize.textContent;
     let number = parseInt(text);
     CartSize.textContent = (number + 1).toString();
+    cartSizeDiv = (number+1).toString();
     sessionStorage.setItem("cartSize",CartSize.textContent = (number + 1).toString());
 }
 function decreaseCartSize() {
     let text = CartSize.textContent;
     let number = parseInt(text);
     CartSize.textContent = (number - 1).toString();
+    cartSizeDiv = (number-1).toString();
     sessionStorage.setItem("cartSize",CartSize.textContent = (number - 1).toString());
 }
 function loadCartSize(){
-    if(sessionStorage.getItem("cartSize")===null){
+    if(cartSizeDiv === ""){
         CartSize.textContent = "0";
-    }else {
-        CartSize.textContent = sessionStorage.getItem("cartSize");
+    }else{
+        CartSize.textContent = cartSizeDiv;
     }
+    // console.log(cartSizeDiv);
+    // console.log("DUPAAAA");
+    // if(sessionStorage.getItem("cartSize")===null){
+    //     CartSize.textContent = "20";
+    // }else {
+    //     CartSize.textContent = sessionStorage.getItem("cartSize");
+    // }
 }
 window.onscroll = function() {myFunction()};
 
