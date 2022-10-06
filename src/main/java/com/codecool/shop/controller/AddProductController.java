@@ -24,29 +24,27 @@ public class AddProductController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CartDao cartDaoStore = CartDaoMem.getInstance();
-        ProductDao productDataStore = ProductDaoMem.getInstance();
+//        CartDao cartDaoStore = CartDaoMem.getInstance();
+//        ProductDao productDataStore = ProductDaoMem.getInstance();
         String id = req.getParameter("prod_id");
         int productId = Integer.parseInt(id);
-        cartDaoStore.addProduct(productDataStore.find(productId));
+//        cartDaoStore.addProduct(productDataStore.find(productId));
         resp.sendRedirect("/");
         saveProductFromCartToDB(productId, 1);
     }
 
     void saveProductFromCartToDB(int productId, int userId){
-        System.out.println("!!! FUNKCJA WESZLA UWAGA !!!");
         PreparedStatement preparedStatement = null;
         try(Connection connection = DataBaseManager.dataSource.getConnection())  {
             String sql = "INSERT INTO cart (product_id, user_id) VALUES (?,?)";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, productId);
             preparedStatement.setInt(2, userId);
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
 //            ResultSet resultSet = connection.createStatement().executeQuery(sql);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("!!! FUNKCJA PRZESZLA UWAGA !!!");
     }
 
 

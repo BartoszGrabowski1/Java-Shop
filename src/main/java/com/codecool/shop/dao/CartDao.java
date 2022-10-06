@@ -11,6 +11,8 @@ public interface CartDao {
 
     void addProduct(Product product);
 
+    void clearData();
+
     BigDecimal getValue();
 
     void removeProduct(Product product);
