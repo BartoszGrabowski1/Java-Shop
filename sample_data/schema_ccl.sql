@@ -13,22 +13,22 @@ ALTER TABLE IF EXISTS ONLY public.ordered_products
 ALTER TABLE IF EXISTS ONLY public.ordered_products
     DROP CONSTRAINT IF EXISTS fk_order_id CASCADE;
 
-DROP TABLE IF EXISTS public.user;
-CREATE TABLE public.user (
+DROP TABLE IF EXISTS public.shop_user;
+CREATE TABLE public.shop_user (
                                    id serial NOT NULL PRIMARY KEY,
                                    name text NOT NULL,
                                    mail text NOT NULL,
-                                   password integer NOT NULL
+                                   password text NOT NULL
 
 );
 
 DROP TABLE IF EXISTS public.product;
 CREATE TABLE public.product (
-                               id serial NOT NULL PRIMARY KEY,
-                               name text NOT NULL,
-                               price decimal Not NULL,
-                               currency text NOT NULL,
-                               description text NOT NULL,
+                                id serial NOT NULL PRIMARY KEY,
+                                name text NOT NULL,
+                                price decimal Not NULL,
+                                currency text NOT NULL,
+                                description text NOT NULL,
                                 category_id integer NOT NULL,
                                 supplier_id integer NOT NULL
 

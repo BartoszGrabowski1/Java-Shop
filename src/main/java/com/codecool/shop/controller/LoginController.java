@@ -1,6 +1,8 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.implementation.UserDaoMem;
+import com.codecool.shop.model.User;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -17,16 +19,29 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        HttpSession httpSession = req.getSession();
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+        context.setVariable("loginStatus", httpSession.getAttribute("loginStatus"));
         engine.process("product/login.html", context, resp.getWriter());
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        if(Objects.equals(req.getParameter("login_email"), "dev@mail.com") && Objects.equals(req.getParameter("login_password"), "developer")){
-            HttpSession httpSession = req.getSession();
-            httpSession.setAttribute("name", "Developer");
-            resp.sendRedirect(req.getContextPath()+"/");
+        HttpSession httpSession = req.getSession();
+        if(UserDaoMem.findByEmail(req.getParameter("login_email"))==null){
+            httpSession.setAttribute("loginStatus", false);
+            resp.sendRedirect(req.getContextPath()+"/login");
+        }else{
+            User user = UserDaoMem.findByEmail(req.getParameter("login_email"));
+            if(Objects.equals(req.getParameter("login_password"), user.getPassword())){
+                httpSession.setAttribute("name", "Developer");
+                httpSession.setAttribute("userId", UserDaoMem.findByEmail(req.getParameter("registration_email")).getId());
+                resp.sendRedirect(req.getContextPath()+"/");
+            }
+            else{
+                httpSession.setAttribute("loginStatus", false);
+                resp.sendRedirect(req.getContextPath()+"/login");
+            }
         }
     }
 }

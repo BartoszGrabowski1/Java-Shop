@@ -10,7 +10,11 @@
 .dropdown * {
     box-sizing: border-box;
 }
-
+.invalid_login{
+    text-align: center;
+    color: red;
+    font-size: 30px;
+}
 .select{
     background: #2a2f3b;
     color: #fff;

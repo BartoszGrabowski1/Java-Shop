@@ -64,7 +64,6 @@ public class ProductCategoryDaoMem implements ProductCategoryDao {
                 productCategory = new ProductCategory(resultSet.getString(2), resultSet.getString(3), resultSet.getString(4));
                 productCategory.setId(resultSet.getInt(1));
                 result.add(productCategory);
-                System.out.println(productCategory);
             }
             return result;
 
