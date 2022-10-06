@@ -35,7 +35,8 @@ public class LoginController extends HttpServlet {
             User user = UserDaoMem.findByEmail(req.getParameter("login_email"));
             if(Objects.equals(req.getParameter("login_password"), user.getPassword())){
                 httpSession.setAttribute("name", "Developer");
-                httpSession.setAttribute("userId", UserDaoMem.findByEmail(req.getParameter("registration_email")).getId());
+                httpSession.setAttribute("userId", UserDaoMem.findByEmail(req.getParameter("login_email")).getId());
+                System.out.println(httpSession.getAttribute("userId"));
                 resp.sendRedirect(req.getContextPath()+"/");
             }
             else{

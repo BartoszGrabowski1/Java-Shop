@@ -36,7 +36,9 @@ public class CartController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        loadCartFromDB(1);
+        HttpSession httpSession = req.getSession();
+        String idUser = httpSession.getAttribute("userId").toString();
+        loadCartFromDB(Integer.parseInt(idUser));
         HttpSession session = req.getSession();
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
